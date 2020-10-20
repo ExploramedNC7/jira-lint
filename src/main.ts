@@ -69,15 +69,6 @@ async function run(): Promise<void> {
       title = '',
     } = pullRequest as PullRequestParams;
 
-    const mTitle =
-      github.context.payload && github.context.payload.pull_request && github.context.payload.pull_request.title;
-
-    core.info(title);
-
-    console.log('Pull Request -> ', pullRequest);
-    console.log('Context -> ', github.context);
-    console.log(`Title = ${mTitle}`);
-
     // common fields for both issue and comment
     const commonPayload = {
       owner,
@@ -103,12 +94,13 @@ async function run(): Promise<void> {
 
     console.log('Base branch -> ', baseBranch);
     console.log('Head branch -> ', headBranch);
+    console.log('Title -> ', title);
 
     if (shouldSkipBranchLint(headBranch, BRANCH_IGNORE_PATTERN)) {
       process.exit(0);
     }
 
-    const issueKeys = getJIRAIssueKeys(headBranch);
+    const issueKeys = getJIRAIssueKeys(title);
     if (!issueKeys.length) {
       const comment: IssuesCreateCommentParams = {
         ...commonPayload,
@@ -122,7 +114,8 @@ async function run(): Promise<void> {
 
     // use the last match (end of the branch name)
     const issueKey = issueKeys[issueKeys.length - 1];
-    console.log(`JIRA key -> ${issueKey}`);
+    console.log(`Jira Keys = ${issueKeys}`);
+    console.log(`Choosing the last JIRA key -> ${issueKey}`);
 
     const { getTicketDetails } = getJIRAClient(JIRA_BASE_URL, JIRA_TOKEN);
     const details: JIRADetails = await getTicketDetails(issueKey);

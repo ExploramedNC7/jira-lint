@@ -91,10 +91,15 @@ async function run(): Promise<void> {
       core.setFailed('Unable to get the head and base branch');
       process.exit(1);
     }
+    const mTitle =
+      github.context.payload && github.context.payload.pull_request && github.context.payload.pull_request.title;
+
+    core.info(mTitle);
 
     console.log('Base branch -> ', baseBranch);
     console.log('Head branch -> ', headBranch);
     console.log('Title -> ', title);
+    console.log('mTitle -> ', mTitle);
 
     if (shouldSkipBranchLint(headBranch, BRANCH_IGNORE_PATTERN)) {
       process.exit(0);
@@ -108,7 +113,7 @@ async function run(): Promise<void> {
       };
       await addComment(client, comment);
 
-      core.setFailed('JIRA issue id is missing in your branch.');
+      core.setFailed('JIRA issue id is missing in your PR Title.');
       process.exit(1);
     }
 

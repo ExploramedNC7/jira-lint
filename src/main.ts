@@ -69,6 +69,15 @@ async function run(): Promise<void> {
       title = '',
     } = pullRequest as PullRequestParams;
 
+    const mTitle =
+      github.context.payload && github.context.payload.pull_request && github.context.payload.pull_request.title;
+
+    core.info(title);
+
+    console.log('Pull Request -> ', pullRequest);
+    console.log('Context -> ', github.context);
+    console.log(`Title = ${mTitle}`);
+
     // common fields for both issue and comment
     const commonPayload = {
       owner,

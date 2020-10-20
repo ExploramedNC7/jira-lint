@@ -1,7 +1,7 @@
 {
   "name": "jira-lint",
   "version": "0.0.1",
-  "description": "Add JIRA issue details to your GitHub pull request",
+  "description": "Add JIRA issue details to your GitHub pull request and Vice-Versa",
   "main": "lib/index.js",
   "scripts": {
     "prebuild": "engines-ok && rm -rf lib",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cleartax/jira-lint"
+    "url": "git+https://github.com/exploramednc7/jira-lint"
   },
   "engines": {
     "node": ">= 13",
@@ -29,14 +29,8 @@
     "jira",
     "jira-issue"
   ],
-  "author": "cleartax",
+  "author": "exploramednc7",
   "license": "MIT",
-  "husky": {
-    "hooks": {
-      "pre-push": "./scripts/pre-push.sh",
-      "pre-commit": "lint-staged && ./scripts/pre-commit.sh"
-    }
-  },
   "dependencies": {
     "@actions/core": "^1.2.3",
     "@actions/github": "^1.1.0",
@@ -54,13 +48,12 @@
     "eslint": "^6.8.0",
     "eslint-plugin-github": "^3.4.1",
     "eslint-plugin-jest": "^23.8.2",
-    "husky": "^4.2.5",
     "jest": "^25.3.0",
     "jest-circus": "^25.3.0",
     "lint-staged": "^10.1.5",
     "lodash": "^4.17.20",
     "markdown-toc": "^1.2.0",
-    "prettier": "^2.0.4",
+    "prettier": "2.1.2",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   }
